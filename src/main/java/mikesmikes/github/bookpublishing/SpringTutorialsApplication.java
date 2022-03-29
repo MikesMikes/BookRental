@@ -1,4 +1,4 @@
-package com.example.springtutorials;
+package mikesmikes.github.bookpublishing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

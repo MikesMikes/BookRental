@@ -1,4 +1,4 @@
-package com.example.springtutorials;
+package mikesmikes.github.bookpublishing;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
