@@ -15,6 +15,13 @@ public class Publisher {
     @OneToMany
     private Set<Book> books = new HashSet<>();
 
+    public Publisher() {
+    }
+
+    public Publisher(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -38,4 +45,6 @@ public class Publisher {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
+
+
 }

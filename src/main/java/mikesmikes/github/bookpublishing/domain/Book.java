@@ -16,9 +16,12 @@ public class Book {
 
     @ManyToOne
     private Publisher publisher;
-
     private String name;
 
+    public Book() {
+    }
+
+    //getters setters
 
     public Long getId() {
         return id;
@@ -50,5 +53,13 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "publisher=" + publisher +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

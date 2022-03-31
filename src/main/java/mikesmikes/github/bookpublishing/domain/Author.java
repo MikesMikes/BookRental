@@ -16,7 +16,13 @@ public class Author {
     private String firstName;
     private String lastName;
 
+    public Author() {
+    }
 
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
@@ -48,5 +54,14 @@ public class Author {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "books=" + books +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
