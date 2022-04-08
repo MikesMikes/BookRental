@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "authors")
 public class Author {
 
     @Id
@@ -13,6 +14,8 @@ public class Author {
 
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books = new HashSet<>();
+
+    @Column(name = "first_name")
     private String firstName;
     private String lastName;
 
@@ -56,6 +59,8 @@ public class Author {
         this.books = books;
     }
 
+
+
     @Override
     public String toString() {
         return "Author{" +
@@ -64,4 +69,6 @@ public class Author {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
+
 }

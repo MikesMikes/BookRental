@@ -44,12 +44,13 @@ public class Bootstrap implements CommandLineRunner {
         Book book1 = new Book();
         book1.setName("First book");
         book1.setPublisher(publisher1);
+        book1.getAuthors().add(author1);
         author1.getBooks().add(book1);
         publisher1.getBooks().add(book1);
 
         authorRepository.save(author1);
         bookRepository.save(book1);
 
-        bookRepository.findAll().forEach(i -> System.out.println(i.toString() + " " + i.getPublisher().getName()));
+        bookRepository.findAll().forEach(i -> System.out.println(i.toString()));
     }
 }

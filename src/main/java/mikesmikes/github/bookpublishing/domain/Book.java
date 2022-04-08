@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "books")
 public class Book {
 
     @Id
@@ -58,8 +59,8 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "publisher=" + publisher +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", publisher=" + publisher +
                 '}';
     }
 }
