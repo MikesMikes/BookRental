@@ -6,11 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "books")
-public class Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Book extends BaseEntity{
 
     @ManyToMany
     private Set<Author> authors = new HashSet<>();
@@ -23,14 +19,6 @@ public class Book {
     }
 
     //getters setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
