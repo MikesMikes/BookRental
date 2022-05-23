@@ -34,13 +34,16 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
-
         Publisher publisher1 = new Publisher();
         publisher1.setName("London Book Publisher");
         publisherRepository.save(publisher1);
 
+        Publisher publisher2 = new Publisher();
+        publisher2.setName("New York Publishing");
+        publisherRepository.save(publisher2);
+
         Author author1 = new Author("Jemi", "Jlshong");
+
         Book book1 = new Book();
         book1.setName("First book");
         book1.setPublisher(publisher1);
@@ -50,6 +53,21 @@ public class Bootstrap implements CommandLineRunner {
 
         authorRepository.save(author1);
         bookRepository.save(book1);
+
+        Author author2 = new Author("Miguel", "de Cervantes");
+        authorRepository.save(author2);
+
+        Book book2 = new Book();
+        book2.setName("Don Quixote");
+        book2.setPublisher(publisher2);
+        book2.getAuthors().add(author2);
+        author2.getBooks().add(book2);
+        publisher2.getBooks().add(book2);
+
+        authorRepository.save(author2);
+
+
+
 
         bookRepository.findAll().forEach(i -> System.out.println(i.toString()));
     }

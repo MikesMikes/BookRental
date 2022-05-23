@@ -27,8 +27,6 @@ public class Author extends BaseEntity {
         this.lastName = lastName;
     }
 
-
-
     public String getFirstName() {
         return firstName;
     }
