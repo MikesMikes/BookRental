@@ -3,10 +3,12 @@ package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 import mikesmikes.github.bookpublishing.domain.Publisher;
 import mikesmikes.github.bookpublishing.repositories.PublisherRepository;
 import mikesmikes.github.bookpublishing.services.PublisherService;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;

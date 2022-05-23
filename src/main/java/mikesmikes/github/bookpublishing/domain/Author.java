@@ -8,10 +8,6 @@ import java.util.Set;
 @Table(name = "authors")
 public class Author extends BaseEntity {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books = new HashSet<>();
 
@@ -51,14 +47,18 @@ public class Author extends BaseEntity {
         this.books = books;
     }
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "books=" + books +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    public Author addBook(Book book){
+        book.getAuthors().add(this);
+        this.books.add(book);
+        return this;
     }
 
 
+    @Override
+    public String toString() {
+        return "Author{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
 }
