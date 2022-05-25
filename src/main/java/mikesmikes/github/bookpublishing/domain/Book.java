@@ -1,5 +1,8 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import org.hibernate.annotations.Cascade;
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +11,11 @@ import java.util.Set;
 @Table(name = "books")
 public class Book extends BaseEntity{
 
-    @ManyToMany
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    @ManyToMany(mappedBy = "books")
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne
@@ -16,6 +23,10 @@ public class Book extends BaseEntity{
     private String name;
 
     public Book() {
+    }
+
+    public Book(String name) {
+        this.name = name;
     }
 
     //getters setters

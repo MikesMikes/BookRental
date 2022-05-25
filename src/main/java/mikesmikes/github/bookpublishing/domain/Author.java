@@ -1,5 +1,7 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,10 +10,14 @@ import java.util.Set;
 @Table(name = "authors")
 public class Author extends BaseEntity {
 
-    @ManyToMany(mappedBy = "authors")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Book> books = new HashSet<>();
 
-    @Column(name = "first_name")
+
     private String firstName;
     private String lastName;
 
@@ -45,12 +51,6 @@ public class Author extends BaseEntity {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
-    }
-
-    public Author addBook(Book book){
-        book.getAuthors().add(this);
-        this.books.add(book);
-        return this;
     }
 
 

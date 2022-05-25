@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class Bootstrap implements CommandLineRunner {
 
@@ -36,20 +39,21 @@ public class Bootstrap implements CommandLineRunner {
         Publisher publisher1 = new Publisher("London Book Publishing");
         publisherService.save(publisher1);
 
-        Author author = new Author("Mike", "Kelly");
-//        authorService.save(author);
+        Author author1 = new Author("Mike", "Kelly");
+        Author author2 = new Author("Terry", "Jones");
+        List<Author> authors = Arrays.asList(author1, author2);
 
-        Book book = new Book();
-        book.setName("Don Doquito");
+        Book book = new Book("Don Doxuito");
+
+        author1.getBooks().add(book);
+        author2.getBooks().add(book);
         book.setPublisher(publisher1);
 
-        author.addBook(book);
+        authorService.saveAll(authors);
 
-        authorService.save(author);
-
-        authorService.findAll().forEach(i -> System.out.println(i));
-        bookService.findAll().forEach(i -> System.out.println(i));
-        publisherService.findAll().forEach(publisher -> System.out.println(publisher));
+//        authorService.findAll().forEach(i -> System.out.println(i));
+//        bookService.findAll().forEach(i -> System.out.println(i));
+//        publisherService.findAll().forEach(publisher -> System.out.println(publisher));
 
     }
 }

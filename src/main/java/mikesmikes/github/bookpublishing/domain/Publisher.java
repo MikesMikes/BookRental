@@ -1,5 +1,7 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,9 +10,13 @@ import java.util.Set;
 @Table(name = "publishers")
 public class Publisher extends BaseEntity{
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "publisher")
     private Set<Book> books = new HashSet<>();
 
     public Publisher() {
