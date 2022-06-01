@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
 @Table(name = "publishers")
+@Entity
 public class Publisher extends BaseEntity{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

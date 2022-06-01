@@ -17,7 +17,6 @@ public class Author extends BaseEntity {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Book> books = new HashSet<>();
 
-
     private String firstName;
     private String lastName;
 
