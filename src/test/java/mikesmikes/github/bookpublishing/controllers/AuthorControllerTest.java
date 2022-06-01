@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
@@ -41,7 +40,9 @@ class AuthorControllerTest {
     @Test
     void getIndex() throws Exception {
         mockMvc.perform(get("/author/index"))
+                .andExpect(status().isOk())
                 .andExpect(view().name("author/index"))
                 .andExpect(model().attributeExists("authors"));
+
     }
 }
