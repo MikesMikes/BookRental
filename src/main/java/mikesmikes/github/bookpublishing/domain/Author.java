@@ -52,6 +52,9 @@ public class Author extends BaseEntity {
         this.books = books;
     }
 
+    public String getFullName() {
+        return this.firstName + ' ' + this.lastName;
+    }
 
     @Override
     public String toString() {
