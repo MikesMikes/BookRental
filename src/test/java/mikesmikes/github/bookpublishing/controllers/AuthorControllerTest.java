@@ -43,6 +43,5 @@ class AuthorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("author/index"))
                 .andExpect(model().attributeExists("authors"));
-
     }
 }
