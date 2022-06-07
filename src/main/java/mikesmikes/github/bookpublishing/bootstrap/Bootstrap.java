@@ -37,6 +37,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Publisher publisher1 = new Publisher("London Book Publishing");
+        publisher1.setAddress("123 Queensland Ave, London");
         publisherService.save(publisher1);
 
         Author author1 = new Author("Mike", "Kelly");

@@ -15,11 +15,22 @@ public class Publisher extends BaseEntity{
     private Long id;
 
     private String name;
+    private String address;
 
     @OneToMany(mappedBy = "publisher")
     private Set<Book> books = new HashSet<>();
 
     public Publisher() {
+    }
+
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Publisher(String name) {
