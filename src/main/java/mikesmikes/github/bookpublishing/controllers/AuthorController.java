@@ -6,16 +6,14 @@ import mikesmikes.github.bookpublishing.services.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
 public class AuthorController {
 
     private final AuthorService authorService;
+    private final String CREATEORUPDATEFORM = "author/createOrUpdateAuthor";
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
@@ -38,7 +36,7 @@ public class AuthorController {
         model.addAttribute("author", new Author());
 
         log.info("createOrUpdateForm - end");
-        return "author/createOrUpdateAuthor";
+        return CREATEORUPDATEFORM;
     }
 
     @PostMapping("/author/new")
@@ -47,4 +45,18 @@ public class AuthorController {
         return "redirect:/author/index";
     }
 
+    @GetMapping("/author/{id}/update")
+    public String updateAuthor(@PathVariable("id") Long id, Model model) {
+
+        model.addAttribute("author", authorService.findById(id));
+
+        return CREATEORUPDATEFORM;
+    }
+
+    @PostMapping("/author/{id}/update")
+    public String processAuthorUpdate(@PathVariable("id") Long id, Author author){
+        author.setId(id);
+        authorService.save(author);
+        return "redirect:/";
+    }
 }

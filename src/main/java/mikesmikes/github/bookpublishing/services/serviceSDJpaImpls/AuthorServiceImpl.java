@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
+import lombok.extern.slf4j.Slf4j;
 import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.repositories.AuthorRepository;
 import mikesmikes.github.bookpublishing.repositories.BookRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Array;
 import java.util.*;
 
+@Slf4j
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
@@ -37,7 +39,15 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author save(Author object) {return authorRepository.save(object);
+    public Author save(Author object) {
+        log.info("" + object.getId());
+        if (authorRepository.existsById(object.getId())) {
+            Author author = authorRepository.findById(object.getId()).get();
+            author.setFirstName(object.getFirstName());
+            author.setLastName(object.getLastName());
+            authorRepository.save(author);
+        }
+        return authorRepository.save(object);
     }
 
     @Override

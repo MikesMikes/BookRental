@@ -41,12 +41,18 @@
         <tr>
             <th scope="col">Publisher Name</th>
             <th scope="col">Address</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="publisher : ${publishers}">
             <td th:text="${publisher.getName()}">TDEE 2</td>
             <td th:text="${publisher.getAddress()}">Foo Publishing Co</td>
+            <td>
+               <span>
+                   <button>Update</button>
+               </span>
+            </td>
         </tr>
         </tbody>
     </table>

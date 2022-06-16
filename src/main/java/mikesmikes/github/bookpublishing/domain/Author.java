@@ -33,6 +33,16 @@ public class Author extends BaseEntity {
         return id == null;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }

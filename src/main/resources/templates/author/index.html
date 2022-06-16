@@ -44,6 +44,7 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Number of Books</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
@@ -51,6 +52,9 @@
             <td th:text="${author.getFirstName()}">Mark</td>
             <td th:text="${author.getLastName()}">Otto</td>
             <td th:text="${author.getBooks().size()}">@mdo</td>
+            <td>
+                <a href="#" th:href="@{'/author/' + ${author.getId()} + '/update'}">Update</a>
+            </td>
         </tr>
         </tbody>
     </table>
