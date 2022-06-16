@@ -19,6 +19,7 @@ public class Author extends BaseEntity {
 
     private String firstName;
     private String lastName;
+    private boolean isNew;
 
     public Author() {
     }
@@ -26,6 +27,10 @@ public class Author extends BaseEntity {
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 
     public String getFirstName() {

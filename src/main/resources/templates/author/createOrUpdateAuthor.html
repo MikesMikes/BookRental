@@ -30,37 +30,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#" th:href="@{'/publisher/findall'}">Publishers</a>
                 </li>
-
             </ul>
         </div>
     </nav>
 </div>
-<div class="container" style="margin-top: 10px">
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary">New</button>
-    </div>
-</div>
+
 <div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Authors</th>
-            <th scope="col">Publisher</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${books}">
-            <td th:text="${book.getName()}">TDEE 2</td>
-            <td>
-      <span th:each="author, i : ${book.getAuthors()}"
-            th:text="${author.getFullName()} + ${!i.last ? ', ' : ''}">Jina Newman, Keri Trues>
-      </span>
-            </td>
-            <td th:text="${book.getPublisher().getName()}">Foo Publishing Co</td>
-        </tr>
-        </tbody>
-    </table>
+    <form th:object="${author}" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>First Name</label>
+                <input type="text" class="form-control" th:field="*{firstName}" placeholder="...">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Last Name</label>
+                <input type="text" class="form-control" th:field="*{lastName}" placeholder="...">
+            </div>
+        </div>
+        <button th:text="${author['isNew']} ? 'Add New Author' : 'Update Author'" type="submit" class="btn btn-primary" >Process</button>
+    </form>
 </div>
 
 </body>
