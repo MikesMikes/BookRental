@@ -40,12 +40,12 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author save(Author object) {
-        log.info("" + object.getId());
         if (authorRepository.existsById(object.getId())) {
             Author author = authorRepository.findById(object.getId()).get();
             author.setFirstName(object.getFirstName());
             author.setLastName(object.getLastName());
-            authorRepository.save(author);
+
+            return authorRepository.save(author);
         }
         return authorRepository.save(object);
     }
