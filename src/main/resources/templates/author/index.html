@@ -35,7 +35,7 @@
     </nav>
 </div>
 <div class="container" style="margin-top: 10px">
-    <a class="btn btn-primary" th:href="@{/author/new}">Add Owner</a>
+    <a class="btn btn-primary" th:href="@{/author/new}">Add New Owner</a>
 </div>
 <div class="container">
     <table class="table">
@@ -53,7 +53,7 @@
             <td th:text="${author.getLastName()}">Otto</td>
             <td th:text="${author.getBooks().size()}">@mdo</td>
             <td>
-                <a href="#" th:href="@{'/author/' + ${author.getId()} + '/update'}">Update</a>
+                <a class="btn btn btn-outline-primary" href="#" th:href="@{'/author/' + ${author.getId()} + '/update'}">Update</a>
             </td>
         </tr>
         </tbody>

@@ -1,6 +1,7 @@
 package mikesmikes.github.bookpublishing.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import mikesmikes.github.bookpublishing.domain.Publisher;
 import mikesmikes.github.bookpublishing.services.PublisherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PublisherController {
 
+    private final String CREATEORUPDATEFORM = "createOrUpdatePublisherForm";
     private final PublisherService publisherService;
 
     public PublisherController(PublisherService publisherService) {
@@ -25,5 +27,13 @@ public class PublisherController {
 
         log.info("findAll - end");
         return "publisher/findall";
+    }
+
+    @GetMapping("/publisher/new")
+    public String createAuthor(Model model){
+
+        model.addAttribute("publisher", new Publisher());
+
+        return CREATEORUPDATEFORM;
     }
 }

@@ -40,6 +40,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author save(Author object) {
+
+        if (object.getId() == null){
+            return authorRepository.save(object);
+        }
+
         if (authorRepository.existsById(object.getId())) {
             Author author = authorRepository.findById(object.getId()).get();
             author.setFirstName(object.getFirstName());
