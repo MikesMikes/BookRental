@@ -40,14 +40,14 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Company Name</label>
-                <input type="text" class="form-control" th:field="*{name}" placeholder="Threshold Publishing">
+                <input type="text" class="form-control" th:field="*{name}" placeholder="London Publishing ltd">
             </div>
             <div class="form-group col-md-6">
-                <label>Company Name</label>
-                <input type="text" class="form-control" th:field="*{address}" placeholder="Threshold Publishing">
+                <label>Company Address</label>
+                <input type="text" class="form-control" th:field="*{address}" placeholder="123 Kingscrow Rd">
             </div>
         </div>
-        <button th:text="${author['isNew']} ? 'Add New Author' : 'Update Author'" type="submit" class="btn btn-primary" >Process</button>
+        <button th:with="text=${publisher.id} == null" th:text="${text} ? 'Create New publisher' : 'Update publisher'" type="submit" class="btn btn-primary" >Process</button>
     </form>
 </div>
 

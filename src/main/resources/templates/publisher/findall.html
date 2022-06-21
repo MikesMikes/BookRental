@@ -52,10 +52,11 @@
             <td th:text="${publisher.getName()}">TDEE 2</td>
             <td th:text="${publisher.getAddress()}">Foo Publishing Co</td>
             <td>
-                <a href="#">
+                <a href="#" th:href="@{'/publisher/' + ${publisher.getId()} + '/update'}">
                     <button type="button" class="btn btn-outline-primary">Edit</button>
                 </a>
             </td>
+
         </tr>
         </tbody>
     </table>

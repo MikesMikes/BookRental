@@ -1,11 +1,15 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "authors")
 public class Author extends BaseEntity {
@@ -19,7 +23,7 @@ public class Author extends BaseEntity {
 
     private String firstName;
     private String lastName;
-    private boolean isNew;
+
 
     public Author() {
     }
@@ -29,9 +33,6 @@ public class Author extends BaseEntity {
         this.lastName = lastName;
     }
 
-    public boolean isNew() {
-        return id == null;
-    }
 
     @Override
     public Long getId() {

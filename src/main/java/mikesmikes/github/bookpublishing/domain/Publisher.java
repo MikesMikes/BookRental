@@ -23,7 +23,10 @@ public class Publisher extends BaseEntity{
     public Publisher() {
     }
 
-
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     public String getAddress() {
         return address;
@@ -52,6 +55,7 @@ public class Publisher extends BaseEntity{
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
+
 
     @Override
     public String toString() {
