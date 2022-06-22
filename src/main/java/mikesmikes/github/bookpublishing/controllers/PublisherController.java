@@ -61,8 +61,9 @@ public class PublisherController {
     public String processUpdatePublisher(@PathVariable("id") Long id, Publisher publisher){
 
         publisher.setId(id);
+        System.out.println(publisher.getId());
         publisherService.save(publisher);
 
-        return "redirect:/publisher/findAll";
+        return "redirect:/publisher/findall";
     }
 }

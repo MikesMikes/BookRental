@@ -1,11 +1,16 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+@Setter
+@Getter
 @Table(name = "publishers")
 @Entity
 public class Publisher extends BaseEntity{
@@ -21,11 +26,6 @@ public class Publisher extends BaseEntity{
     private Set<Book> books = new HashSet<>();
 
     public Publisher() {
-    }
-
-    @Override
-    public Long getId() {
-        return id;
     }
 
     public String getAddress() {

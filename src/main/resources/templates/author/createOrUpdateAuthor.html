@@ -47,7 +47,9 @@
                 <input type="text" class="form-control" th:field="*{lastName}" placeholder="...">
             </div>
         </div>
-        <button th:with="text=${author.id} == null" th:text="${text} ? 'Create New Author' : 'Update Author'" type="submit" class="btn btn-primary" >Process</button>
+        <div>
+            <button th:with="text=${author.id} == null" th:text="${text} ? 'Create New Author' : 'Update Author'" type="submit" class="btn btn-primary" >Process</button>
+        </div>
     </form>
 </div>
 
