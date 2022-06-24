@@ -34,6 +34,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book object) {
+        object.getAuthors().forEach(i -> {
+            i.getBooks().add(object);
+        });
         return bookRepository.save(object);
     }
 

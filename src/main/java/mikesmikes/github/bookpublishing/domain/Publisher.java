@@ -28,16 +28,16 @@ public class Publisher extends BaseEntity{
     public Publisher() {
     }
 
+    public Publisher(String name) {
+        this.name = name;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Publisher(String name) {
-        this.name = name;
     }
 
     public String getName() {
