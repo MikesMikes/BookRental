@@ -43,7 +43,7 @@ public class AuthorController {
     }
 
     @PostMapping("/author/new")
-    public String processCreateOrUpdate(Author author) {
+    public String processCreateAuthor(Author author) {
         authorService.save(author);
         return "redirect:/author/index";
     }
