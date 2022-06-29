@@ -63,7 +63,6 @@ public class BookController {
     @PostMapping("/book/{id}/update")
     public String processBookUpdate(@PathVariable("id") Long id, Book book){
 
-        book.setId(id);
         bookService.save(book);
 
         return "redirect:/";

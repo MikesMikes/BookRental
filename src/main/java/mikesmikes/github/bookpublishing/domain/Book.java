@@ -1,5 +1,7 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.springframework.data.annotation.Id;
 
@@ -7,6 +9,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "books")
 public class Book extends BaseEntity{
@@ -15,7 +19,7 @@ public class Book extends BaseEntity{
     @Id
     private Long id;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.ALL})
     private Set<Author> authors = new HashSet<>();
 
     @ManyToOne
@@ -55,11 +59,21 @@ public class Book extends BaseEntity{
         this.publisher = publisher;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Book{" +
+//                "name='" + name + '\'' +
+//                ", publisher=" + publisher +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "Book{" +
-                "name='" + name + '\'' +
+                "authors=" + authors +
                 ", publisher=" + publisher +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

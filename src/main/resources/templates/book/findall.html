@@ -45,6 +45,7 @@
             <th scope="col">Title</th>
             <th scope="col">Authors</th>
             <th scope="col">Publisher</th>
+            <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +56,16 @@
             th:text="${author.getFullName()} + ${!i.last ? ', ' : ''}">Jina Newman, Keri Trues>
       </span>
             </td>
-            <td th:with="text=${book.publisher} == null" th:text="${text} ? '' : ${book.publisher.name}">Foo Publishing Co</td>
+            <td th:with="text=${book.publisher} == null" th:text="${text} ? '' : ${book.publisher.name}">Foo Publishing
+                Co
+            </td>
+            <td>
+                <span>
+                    <a th:href="@{'/book/' + ${book.getId()} + '/update'}">
+                        <button type="button" class="btn btn-outline-primary">Update</button>
+                    </a>
+                </span>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -33,6 +34,13 @@ public class Author extends BaseEntity {
         this.lastName = lastName;
     }
 
+    @Builder
+    public Author(Long id, Set<Book> books, String firstName, String lastName) {
+        this.id = id;
+        this.books = books;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     @Override
     public Long getId() {

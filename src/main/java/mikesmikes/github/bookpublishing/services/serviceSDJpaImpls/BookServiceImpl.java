@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
+import lombok.extern.slf4j.Slf4j;
 import mikesmikes.github.bookpublishing.domain.Book;
 import mikesmikes.github.bookpublishing.repositories.BookRepository;
 import mikesmikes.github.bookpublishing.services.BookService;
@@ -10,6 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -34,10 +36,24 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book object) {
-        object.getAuthors().forEach(i -> {
-            i.getBooks().add(object);
-        });
-        return bookRepository.save(object);
+
+        if (object.getId() == null) {
+            log.info("null");
+            object.getAuthors().forEach(i -> {
+                i.getBooks().add(object);
+            });
+            return bookRepository.save(object);
+        } else {
+
+            Book book = bookRepository.findById(object.getId()).get();
+            book.setName(object.getName());
+            if (object.getPublisher() != null) {
+                log.info("publisher: " + object.getPublisher());
+                book.setPublisher(object.getPublisher());
+            }
+
+            return bookRepository.save(book);
+        }
     }
 
     @Override
@@ -50,3 +66,5 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 }
+//[Book{authors=[Author{firstName='Terry', lastName='Jones'}, Author{firstName='Mike', lastName='Kelly'}], publisher=null, name='Don Doxuitosss'}];
+//[Book{authors=[Author{firstName='Terry', lastName='Jones'}, Author{firstName='Mike', lastName='Kelly'}], publisher=Publisher{name='London Book Publishing'}, name='Don Doxuitosss'}
