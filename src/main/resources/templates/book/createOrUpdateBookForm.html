@@ -45,6 +45,7 @@
             <div class="form-group col-md-4">
                 <label>Author/s</label>
                 <select class="form-control" th:field="*{authors}" multiple="multiple">
+                    <option th:value="-1">None</option>
                     <option th:each="author : ${authors}"
                             th:value="${author.id}"
                             th:text="${author.fullName}">Each

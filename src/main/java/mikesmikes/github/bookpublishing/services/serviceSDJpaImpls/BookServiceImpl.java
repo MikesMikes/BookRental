@@ -44,12 +44,23 @@ public class BookServiceImpl implements BookService {
             });
             return bookRepository.save(object);
         } else {
-
             Book book = bookRepository.findById(object.getId()).get();
             book.setName(object.getName());
             if (object.getPublisher() != null) {
                 log.info("publisher: " + object.getPublisher());
                 book.setPublisher(object.getPublisher());
+            } else {
+                book.setPublisher(null);
+            }
+            if (!object.getAuthors().isEmpty()){
+                if (object.getAuthors().contains(null)){
+                    log.info("contains null");
+                    book.getAuthors().forEach(i -> {
+                        i.getBooks().clear();
+                    });
+                } else {
+                    object.getAuthors().forEach(i -> i.getBooks().add(book));
+                }
             }
 
             return bookRepository.save(book);

@@ -21,6 +21,9 @@ public class AuthorIdToAuthorConverter implements Converter<String, Author> {
     @Override
     public Author convert(String id) {
         log.info("Author convert: "+id);
+        if (Integer.valueOf(id) == -1){
+            return null;
+        }
         Optional<Author> authorOptional = authorRepository.findById(Long.valueOf(id));
         Author author = null;
         if (authorOptional.isPresent()){
