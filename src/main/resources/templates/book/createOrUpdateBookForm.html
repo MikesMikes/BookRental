@@ -37,6 +37,7 @@
 
 <div class="container">
     <form th:object="${book}" method="post">
+        <input type="hidden" th:field="*{id}" name="id">
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label>Book Name</label>

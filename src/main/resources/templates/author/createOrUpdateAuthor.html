@@ -37,14 +37,17 @@
 
 <div class="container">
     <form th:object="${author}" method="post">
+        <input type="hidden" th:field="*{id}" name="id">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>First Name</label>
                 <input type="text" class="form-control" th:field="*{firstName}" placeholder="...">
+                <p th:if="${#fields.hasErrors}" th:errors="*{firstName}">error</p>
             </div>
             <div class="form-group col-md-6">
                 <label>Last Name</label>
                 <input type="text" class="form-control" th:field="*{lastName}" placeholder="...">
+                <p th:if="${#fields.hasErrors}" th:errors="*{lastName}">error</p>
             </div>
         </div>
         <div>

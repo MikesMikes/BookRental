@@ -5,10 +5,13 @@ import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.services.AuthorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 
 @Slf4j
@@ -43,7 +46,10 @@ public class AuthorController {
     }
 
     @PostMapping("/author/new")
-    public String processCreateAuthor(Author author) {
+    public String processCreateAuthor(@Valid Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return CREATEORUPDATEFORM;
+        }
         authorService.save(author);
         return "redirect:/author/index";
     }
