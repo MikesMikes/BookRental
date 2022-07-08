@@ -6,6 +6,7 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,8 @@ public class Book extends BaseEntity{
 
     @ManyToOne
     private Publisher publisher;
+
+    @NotBlank(message = "Must not be Blank or Empty")
     private String name;
 
     public Book() {
@@ -58,15 +61,6 @@ public class Book extends BaseEntity{
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Book{" +
-//                "name='" + name + '\'' +
-//                ", publisher=" + publisher +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {
