@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class AuthorController {
 
     private final AuthorService authorService;
-    private final String INDEX = "/author/index";
+    private final String INDEX = "/author/findall";
     private final String CREATEORUPDATEFORM = "author/createOrUpdateAuthor";
 
     public AuthorController(AuthorService authorService) {
@@ -33,7 +33,7 @@ public class AuthorController {
         model.addAttribute("authors", authorService.findAll());
 
         log.info("getIndex - end");
-        return "author/index";
+        return INDEX;
     }
 
     @GetMapping("/author/new")

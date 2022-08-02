@@ -73,7 +73,14 @@ public class BookController {
     }
 
     @PostMapping("/book/{id}/update")
-    public String processBookUpdate(@PathVariable("id") Long id, Book book){
+    public String processBookUpdate(@PathVariable("id") Long id, @Valid Book book, BindingResult bindingResult, Model model){
+
+        if (bindingResult.hasErrors()){
+            log.info("Has errors: " + bindingResult.getAllErrors().toString());
+            model.addAttribute("authors", authorService.findAll());
+            model.addAttribute("publishers", publisherService.findAll());
+            return CREATEUPDATEFORM;
+        }
         log.info("book: " + book.toString());
         log.info("publisher: "+ book.getPublisher());
         bookService.save(book);
