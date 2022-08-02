@@ -6,14 +6,18 @@ import mikesmikes.github.bookpublishing.domain.Publisher;
 import mikesmikes.github.bookpublishing.services.PublisherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class PublisherController {
 
+    private final String INDEX = "publisher/findall";
     private final String CREATEORUPDATEFORM = "publisher/createOrUpdatePublisherForm";
     private final PublisherService publisherService;
 
@@ -41,8 +45,11 @@ public class PublisherController {
     }
 
     @PostMapping("/publisher/new")
-    public String processCreatePublisher(Publisher publisher){
+    public String processCreatePublisher(@Valid Publisher publisher, BindingResult bindingResult){
 
+        if (bindingResult.hasErrors()){
+            return CREATEORUPDATEFORM;
+        }
         publisherService.save(publisher);
 
         return "redirect:/publisher/findAll";
@@ -58,7 +65,11 @@ public class PublisherController {
     }
 
     @PostMapping("/publisher/{id}/update")
-    public String processUpdatePublisher(@PathVariable("id") Long id, Publisher publisher){
+    public String processUpdatePublisher(@PathVariable("id") Long id, @Valid Publisher publisher, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            return CREATEORUPDATEFORM;
+        }
 
         publisher.setId(id);
         System.out.println(publisher.getId());

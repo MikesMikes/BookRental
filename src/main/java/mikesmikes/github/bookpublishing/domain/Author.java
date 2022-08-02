@@ -27,9 +27,9 @@ public class Author extends BaseEntity {
     private Set<Book> books = new HashSet<>();
 
     @NotNull
-    @NotEmpty(message = "Must not be Blank or Empty")
+    @NotBlank(message = "Cannot not be left Blank or Empty")
     private String firstName;
-    @NotEmpty(message = "Must not be Blank or Empty")
+    @NotBlank(message = "Cannot not be left Blank or Empty")
     private String lastName;
 
     public Author() {
