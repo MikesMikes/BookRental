@@ -19,6 +19,7 @@ import javax.validation.Valid;
 public class AuthorController {
 
     private final AuthorService authorService;
+    private final String INDEX = "/author/index";
     private final String CREATEORUPDATEFORM = "author/createOrUpdateAuthor";
 
     public AuthorController(AuthorService authorService) {
@@ -63,9 +64,15 @@ public class AuthorController {
     }
 
     @PostMapping("/author/{id}/update")
-    public String processAuthorUpdate(@PathVariable("id") Long id, Author author){
-        author.setId(id);
-        authorService.save(author);
-        return "redirect:/";
+    public String processAuthorUpdate(@PathVariable("id") Long id,@Valid Author author, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            log.info("has errors :" + bindingResult.getAllErrors().toString());
+            return CREATEORUPDATEFORM;
+        } else {
+            author.setId(id);
+            authorService.save(author);
+            return "redirect:" + INDEX;
+        }
     }
 }

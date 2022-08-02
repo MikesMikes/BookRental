@@ -26,6 +26,7 @@ public class Author extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
 
+    @NotNull
     @NotEmpty(message = "Must not be Blank or Empty")
     private String firstName;
     @NotEmpty(message = "Must not be Blank or Empty")
