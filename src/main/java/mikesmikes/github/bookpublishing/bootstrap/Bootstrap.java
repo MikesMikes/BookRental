@@ -42,7 +42,8 @@ public class Bootstrap implements CommandLineRunner {
 
         Author author1 = new Author("Mike", "Kelly");
         Author author2 = new Author("Terry", "Jones");
-        List<Author> authors = Arrays.asList(author1, author2);
+        Author author3 = new Author("James", "Carling");
+        List<Author> authors = Arrays.asList(author1, author2, author3);
 
         Book book = new Book("Don Doxuito");
 

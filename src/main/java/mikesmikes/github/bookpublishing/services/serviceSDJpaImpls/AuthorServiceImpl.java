@@ -7,7 +7,6 @@ import mikesmikes.github.bookpublishing.repositories.BookRepository;
 import mikesmikes.github.bookpublishing.services.AuthorService;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Slf4j
@@ -15,10 +14,11 @@ import java.util.*;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
 
-
-    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository, BookRepository bookRepository1) {
         this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository1;
     }
 
     @Override
@@ -57,6 +57,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Author object) {
+
         authorRepository.delete(object);
     }
 

@@ -29,6 +29,7 @@ public class AuthorController {
     @RequestMapping("/author/index")
     public String getIndex(Model model) {
         log.info("getIndex - ");
+        log.info(authorService.findAll().toString());
 
         model.addAttribute("authors", authorService.findAll());
 
@@ -74,5 +75,13 @@ public class AuthorController {
             authorService.save(author);
             return "redirect:" + INDEX;
         }
+    }
+
+    @RequestMapping("/author/{id}/delete")
+    public String processAuthorDelete(@PathVariable("id") Long id){
+
+        authorService.deleteById(id);
+
+        return "redirect:/author/index";
     }
 }
