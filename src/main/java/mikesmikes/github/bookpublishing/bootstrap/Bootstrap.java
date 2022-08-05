@@ -45,12 +45,14 @@ public class Bootstrap implements CommandLineRunner {
         Author author3 = new Author("James", "Carling");
         List<Author> authors = Arrays.asList(author1, author2, author3);
 
-        Book book = new Book("Don Doxuito");
+        Book book1 = new Book("Don Doxuito");
+        Book book2 = new Book("Arlington Major");
 
-        author1.getBooks().add(book);
-        author2.getBooks().add(book);
-        book.setPublisher(publisher1);
+        author1.getBooks().add(book1);
+        author2.getBooks().add(book1);
+        book1.setPublisher(publisher1);
 
+        bookService.save(book2);
         authorService.saveAll(authors);
 
 //        authorService.findAll().forEach(i -> System.out.println(i));

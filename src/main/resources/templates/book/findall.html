@@ -52,9 +52,8 @@
         <tr th:each="book : ${books}">
             <td th:text="${book.getName()}">TDEE 2</td>
             <td>
-      <span th:each="author, i : ${book.getAuthors()}"
-            th:text="${author.getFullName()} + ${!i.last ? ', ' : ''}">Jina Newman, Keri Trues>
-      </span>
+              <span th:each="author, i : ${book.getAuthors()}"
+            th:text="${author.getFullName()} + ${!i.last ? ', ' : ''}">Jina Newman, Keri Trues</span>
             </td>
             <td th:with="text=${book.publisher} == null" th:text="${text} ? '' : ${book.publisher.name}">Foo Publishing
                 Co
@@ -63,6 +62,9 @@
                 <span>
                     <a th:href="@{'/book/' + ${book.getId()} + '/update'}">
                         <button type="button" class="btn btn-outline-primary">Update</button>
+                    </a>
+                    <a th:href="@{'/book/' + ${book.getId()} + '/delete'}">
+                        <button type="button" class="btn btn-outline-primary">Delete</button>
                     </a>
                 </span>
             </td>

@@ -88,5 +88,13 @@ public class BookController {
         return "redirect:/book/findall";
     }
 
+    @RequestMapping("/book/{id}/delete")
+    public String processBookDelete(@PathVariable("id") Long id){
+
+        bookService.deleteById(id);
+
+        return "redirect:/book/findall";
+    }
+
 
 }
