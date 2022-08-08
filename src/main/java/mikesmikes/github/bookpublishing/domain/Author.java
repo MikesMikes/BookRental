@@ -23,7 +23,7 @@ public class Author extends BaseEntity {
     @Id
     private Long id;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
 
     @NotNull
