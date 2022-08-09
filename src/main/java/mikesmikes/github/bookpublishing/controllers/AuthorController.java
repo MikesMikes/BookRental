@@ -20,7 +20,7 @@ public class AuthorController {
 
     private final AuthorService authorService;
     private final String INDEX = "/author/findall";
-    private final String CREATEORUPDATEFORM = "author/createOrUpdateAuthor";
+    private final String CREATEORUPDATEFORM = "author/createOrUpdateAuthorForm";
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;
