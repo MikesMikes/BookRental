@@ -46,7 +46,7 @@ class AuthorControllerTest {
     void getIndex() throws Exception {
         mockMvc.perform(get("/author/index"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("author/index"))
+                .andExpect(view().name("/author/findall"))
                 .andExpect(model().attributeExists("authors"));
     }
 
@@ -70,7 +70,7 @@ class AuthorControllerTest {
 
     @Test
     void processUpdateAuthor() throws Exception {
-        when(authorService.save(any())).thenReturn(Author.builder().id(1L).build());
+        when(authorService.save(any())).thenReturn(Author.builder().id(1L).firstName("James").lastName("Dean").build());
 
         mockMvc.perform(post("/author/1/update"))
                 .andExpect(status().is3xxRedirection())
