@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -77,4 +78,13 @@ public class PublisherController {
 
         return "redirect:/publisher/findall";
     }
+
+    @RequestMapping("/publisher/{id}/delete")
+    public String processDeletePublisher(@PathVariable("id") Long id){
+
+        publisherService.deleteById(id);
+
+        return "redirect:/publisher/findall";
+    }
+
 }

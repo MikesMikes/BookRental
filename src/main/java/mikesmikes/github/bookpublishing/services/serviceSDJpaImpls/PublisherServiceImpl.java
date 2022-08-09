@@ -2,6 +2,7 @@ package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
 import lombok.extern.slf4j.Slf4j;
 import mikesmikes.github.bookpublishing.domain.Publisher;
+import mikesmikes.github.bookpublishing.repositories.BookRepository;
 import mikesmikes.github.bookpublishing.repositories.PublisherRepository;
 import mikesmikes.github.bookpublishing.services.PublisherService;
 import org.springframework.stereotype.Service;
@@ -13,9 +14,11 @@ import java.util.Set;
 @Service
 public class PublisherServiceImpl implements PublisherService {
 
+    private final BookRepository bookRepository;
     private final PublisherRepository publisherRepository;
 
-    public PublisherServiceImpl(PublisherRepository publisherRepository) {
+    public PublisherServiceImpl(BookRepository bookRepository, PublisherRepository publisherRepository) {
+        this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
     }
 
@@ -52,6 +55,15 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public void deleteById(Long id) {
+
+        Publisher publisher = publisherRepository.findById(id).orElse(null);
+
+        publisher.getBooks().forEach(i -> {
+            i.setPublisher(null);
+        });
+
+        publisher.setBooks(null);
+
         publisherRepository.deleteById(id);
     }
 }
