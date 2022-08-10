@@ -88,7 +88,16 @@ class BookControllerTest {
                 .andExpect(view().name(REDIRECTBOOKFINDALL));
     }
 
+    @Test
+    void processCreateBookFail() throws Exception {
 
+        mockMvc.perform(post("/book/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", ""))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name(CREATEUPDATEFORM));
+    }
 
     @Test
     void bookUpdate() {
