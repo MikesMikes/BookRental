@@ -1,26 +1,17 @@
 package mikesmikes.github.bookpublishing.controllers;
 
 import mikesmikes.github.bookpublishing.domain.Author;
-import mikesmikes.github.bookpublishing.domain.Book;
 import mikesmikes.github.bookpublishing.repositories.AuthorRepository;
 import mikesmikes.github.bookpublishing.services.AuthorService;
-import mikesmikes.github.bookpublishing.services.BookService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 
 
 import static org.mockito.ArgumentMatchers.any;
@@ -57,7 +48,7 @@ class AuthorControllerTest {
         mockMvc.perform(get("/author/new"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("author"))
-                .andExpect(view().name("author/createOrUpdateAuthor"));
+                .andExpect(view().name("author/createOrUpdateAuthorForm"));
     }
 
     @Test
@@ -66,7 +57,7 @@ class AuthorControllerTest {
 
         mockMvc.perform(get("/author/1/update"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("author/createOrUpdateAuthor"))
+                .andExpect(view().name("author/createOrUpdateAuthorForm"))
                 .andExpect(model().attributeExists("author"));
     }
 
@@ -98,5 +89,14 @@ class AuthorControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("author/createOrUpdateAuthorForm"));
 
+    }
+
+    @Test
+    void processAuthorDelete() throws Exception {
+        mockMvc.perform(get("/author/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/author/index"));
+
+        verify(authorService, times(1)).deleteById(anyLong());
     }
 }
