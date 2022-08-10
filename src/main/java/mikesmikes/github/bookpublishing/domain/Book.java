@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
@@ -30,6 +31,14 @@ public class Book extends BaseEntity{
     private String name;
 
     public Book() {
+    }
+
+    @Builder
+    public Book(Long id, Set<Author> authors, Publisher publisher, String name) {
+        this.id = id;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.name = name;
     }
 
     public Book(String name) {
