@@ -1,7 +1,6 @@
 package mikesmikes.github.bookpublishing.controllers;
 
 import mikesmikes.github.bookpublishing.converters.AuthorIdToAuthorConverter;
-import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.domain.Book;
 import mikesmikes.github.bookpublishing.services.AuthorService;
 import mikesmikes.github.bookpublishing.services.BookService;
@@ -9,22 +8,19 @@ import mikesmikes.github.bookpublishing.services.PublisherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.RequestResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,7 +32,7 @@ class BookControllerTest {
 
     private final String REDIRECTBOOKFINDALL = "redirect:/book/findall";
     private final String CREATEUPDATEFORM = "book/createOrUpdateBookForm";
-    private final Book bookValid = Book.builder().id(1L).name("Test").build();
+    private final Book BOOK_VALID = Book.builder().id(1L).name("Test").build();
     String bookName = "Some name";
 
     @MockBean
@@ -100,11 +96,34 @@ class BookControllerTest {
     }
 
     @Test
-    void bookUpdate() {
+    void bookUpdateFormGet() throws Exception {
+        when(bookService.findById(anyLong())).thenReturn(BOOK_VALID);
+
+        mockMvc.perform(get("/book/1/update"))
+                .andExpect(model().attributeExists("book"))
+                .andExpect(model().attributeExists("publishers"))
+                .andExpect(model().attributeExists("authors"))
+                .andExpect(view().name(CREATEUPDATEFORM));
+
+        verify(bookService, times(1)).findById(anyLong());
     }
 
     @Test
-    void processBookUpdate() {
+    void processBookUpdateFormFail() throws Exception {
+        mockMvc.perform(post("/book/1/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", ""))
+                .andExpect(view().name(CREATEUPDATEFORM))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void processBookUpdateValid() throws Exception {
+        mockMvc.perform(post("/book/1/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "somename"))
+                .andExpect(view().name(REDIRECTBOOKFINDALL))
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test
