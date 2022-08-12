@@ -115,6 +115,8 @@ class BookControllerTest {
                         .param("name", ""))
                 .andExpect(view().name(CREATEUPDATEFORM))
                 .andExpect(status().is2xxSuccessful());
+
+        verify(bookService, times(0)).save(any());
     }
 
     @Test
@@ -124,9 +126,17 @@ class BookControllerTest {
                         .param("name", "somename"))
                 .andExpect(view().name(REDIRECTBOOKFINDALL))
                 .andExpect(status().is3xxRedirection());
+
+        verify(bookService, times(1)).save(any());
     }
 
     @Test
-    void processBookDelete() {
+    void processBookDelete() throws Exception {
+
+
+        mockMvc.perform(get("/book/1/delete"))
+                .andExpect(view().name(REDIRECTBOOKFINDALL));
+
+        verify(bookService, times(1)).deleteById(any());
     }
 }

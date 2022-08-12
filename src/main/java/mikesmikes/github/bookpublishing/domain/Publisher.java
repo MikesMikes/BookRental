@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +21,9 @@ public class Publisher extends BaseEntity{
     @Id
     private Long id;
 
+    @NotBlank(message = "Cannot not be left Blank or Empty")
     private String name;
+    @NotBlank(message = "Cannot not be left Blank or Empty")
     private String address;
 
     @OneToMany(mappedBy = "publisher")
