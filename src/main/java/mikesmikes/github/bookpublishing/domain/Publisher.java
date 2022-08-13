@@ -23,6 +23,7 @@ public class Publisher extends BaseEntity{
 
     @NotBlank(message = "Cannot not be left Blank or Empty")
     private String name;
+
     @NotBlank(message = "Cannot not be left Blank or Empty")
     private String address;
 
