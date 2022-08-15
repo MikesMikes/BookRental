@@ -126,14 +126,26 @@ class PublisherControllerTest {
     }
 
     @Test
-    void processDeletePublisher() {
+    void processUpdatePublisherValidationPassss() throws Exception {
+        Publisher publisher = Publisher.builder().id(1L).name("asd").address("address").build();
+        given(publisherService.save(any())).willReturn(publisher);
+
+        mockMvc.perform(post("/publisher/1/update")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(new ObjectMapper().writeValueAsString(publisher)))
+                .andExpect(jsonPath("$.name", equalTo(publisher.getName())))
+                .andExpect(view().name(REDIRECT_FINDALL));
+
+        verify(publisherService, times(1)).save(any());
     }
 
-    public static String asJsonString(final Object object){
-        try {
-            return new ObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+    @Test
+    void processDeletePublisher() throws Exception {
+
+        mockMvc.perform(get("/publisher/1/delete"))
+                .andExpect(view().name(REDIRECT_FINDALL));
+
+        verify(publisherService, times(1)).deleteById(any());
     }
+
 }
