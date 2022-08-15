@@ -71,14 +71,16 @@ class PublisherControllerTest {
         verify(publisherService, times(0)).save(any());
     }
 
-//    @Test
-//    void processCreatePublisherValidationPass() throws Exception {
-//        mockMvc.perform(post("/publisher/new")
-//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-//                        .param("name", "")
-//                        .param("address", ""))
-//                .andExpect(view().name(CREATEORUPDATEFORM));
-//    }
+    @Test
+    void processCreatePublisherValidationPass() throws Exception {
+        mockMvc.perform(post("/publisher/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "some name")
+                        .param("address", "some name"))
+                .andExpect(view().name(REDIRECT_FINDALL));
+
+        verify(publisherService, times(1)).save(any());
+    }
 
     @Test
     void updatePublisher() {
