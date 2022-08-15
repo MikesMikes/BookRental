@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -31,6 +32,14 @@ public class Publisher extends BaseEntity{
     private Set<Book> books = new HashSet<>();
 
     public Publisher() {
+    }
+
+    @Builder
+    public Publisher(Long id, String name, String address, Set<Book> books) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.books = books;
     }
 
     public Publisher(String name) {

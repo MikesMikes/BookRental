@@ -53,7 +53,7 @@ public class PublisherController {
         }
         publisherService.save(publisher);
 
-        return "redirect:/publisher/findAll";
+        return "redirect:/publisher/findall";
     }
 
 
