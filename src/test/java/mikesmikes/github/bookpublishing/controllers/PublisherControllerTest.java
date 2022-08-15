@@ -18,6 +18,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -64,7 +67,18 @@ class PublisherControllerTest {
                         .param("name", "")
                         .param("address", ""))
                 .andExpect(view().name(CREATEORUPDATEFORM));
+
+        verify(publisherService, times(0)).save(any());
     }
+
+//    @Test
+//    void processCreatePublisherValidationPass() throws Exception {
+//        mockMvc.perform(post("/publisher/new")
+//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//                        .param("name", "")
+//                        .param("address", ""))
+//                .andExpect(view().name(CREATEORUPDATEFORM));
+//    }
 
     @Test
     void updatePublisher() {
