@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class Bootstrap implements CommandLineRunner {
@@ -22,6 +23,7 @@ public class Bootstrap implements CommandLineRunner {
     private final AuthorService authorService;
     private final BookService bookService;
     private final PublisherService publisherService;
+
 
     public Bootstrap(AuthorService authorService, BookService bookService, PublisherService publisherService) {
         this.authorService = authorService;
@@ -36,33 +38,37 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        Set<Author> authorSet = authorService.findAll();
+        Set<Publisher> publisherSet = publisherService.findAll();
+        Set<Book> bookSet = bookService.findAll();
+
         Publisher publisher1 = new Publisher("London Book Publishing");
         publisher1.setAddress("123 Queensland Ave, London");
-        publisherService.save(publisher1);
+
 
         Author author1 = new Author("Mike", "Kelly");
         Author author2 = new Author("Terry", "Jones");
         Author author3 = new Author("James", "Carling");
         List<Author> authors = Arrays.asList(author1, author2, author3);
 
-        authorService.saveAll(authors);
 
         Book book1 = new Book("Don Doxuito");
         Book book2 = new Book("Arlington Major");
         List<Book> books = Arrays.asList(book1, book2);
 
-        bookService.saveAll(books);
+        if (!authorSet.containsAll(authors)) {
+            publisherService.save(publisher1);
+            authorService.saveAll(authors);
+            bookService.saveAll(books);
 
-        author1.getBooks().add(book1);
-        author2.getBooks().add(book1);
-        book1.setPublisher(publisher1);
+            author1.getBooks().add(book1);
+            author2.getBooks().add(book1);
+            book1.setPublisher(publisher1);
 
-        bookService.save(book2);
-        authorService.saveAll(authors);
+            bookService.save(book2);
+            authorService.saveAll(authors);
+        }
 
-//        authorService.findAll().forEach(i -> System.out.println(i));
-//        bookService.findAll().forEach(i -> System.out.println(i));
-//        publisherService.findAll().forEach(publisher -> System.out.println(publisher));
 
     }
 }
