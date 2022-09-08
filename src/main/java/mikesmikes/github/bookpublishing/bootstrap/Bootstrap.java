@@ -38,6 +38,7 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+
         Set<Author> authorSet = authorService.findAll();
         Set<Publisher> publisherSet = publisherService.findAll();
         Set<Book> bookSet = bookService.findAll();
@@ -56,7 +57,7 @@ public class Bootstrap implements CommandLineRunner {
         Book book2 = new Book("Arlington Major");
         List<Book> books = Arrays.asList(book1, book2);
 
-        if (!authorSet.containsAll(authors)) {
+        if(authorSet.isEmpty() && publisherSet.isEmpty() && bookSet.isEmpty()){
             publisherService.save(publisher1);
             authorService.saveAll(authors);
             bookService.saveAll(books);
