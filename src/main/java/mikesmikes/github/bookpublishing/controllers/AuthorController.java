@@ -1,6 +1,7 @@
 package mikesmikes.github.bookpublishing.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import mikesmikes.github.bookpublishing.controllers.ErrorHandling.GlobalExceptionHandlerController;
 import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.services.AuthorService;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @Slf4j
@@ -49,7 +51,7 @@ public class AuthorController {
 
     @PostMapping("/author/new")
     public String processCreateAuthor(@Valid Author author, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return CREATEORUPDATEFORM;
         }
         authorService.save(author);
@@ -57,7 +59,11 @@ public class AuthorController {
     }
 
     @GetMapping("/author/{id}/update")
-    public String updateAuthor(@PathVariable("id") Long id, Model model) {
+    public String updateAuthor(@PathVariable("id") Long id, Model model) throws Exception {
+
+        if (Optional.ofNullable(authorService.findById(id)).isEmpty()) {
+            throw new Exception();
+        }
 
         model.addAttribute("author", authorService.findById(id));
 
@@ -65,9 +71,9 @@ public class AuthorController {
     }
 
     @PostMapping("/author/{id}/update")
-    public String processAuthorUpdate(@PathVariable("id") Long id,@Valid Author author, BindingResult bindingResult){
+    public String processAuthorUpdate(@PathVariable("id") Long id, @Valid Author author, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.info("has errors :" + bindingResult.getAllErrors().toString());
             return CREATEORUPDATEFORM;
         } else {
@@ -78,10 +84,14 @@ public class AuthorController {
     }
 
     @RequestMapping("/author/{id}/delete")
-    public String processAuthorDelete(@PathVariable("id") Long id){
+    public String processAuthorDelete(@PathVariable("id") Long id) {
 
         authorService.deleteById(id);
 
         return "redirect:/author/index";
     }
+
+
+
+
 }
