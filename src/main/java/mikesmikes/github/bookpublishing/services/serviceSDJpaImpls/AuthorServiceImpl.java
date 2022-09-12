@@ -1,6 +1,7 @@
 package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
 import lombok.extern.slf4j.Slf4j;
+import mikesmikes.github.bookpublishing.NotFoundExceptionHandler;
 import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.repositories.AuthorRepository;
 import mikesmikes.github.bookpublishing.repositories.BookRepository;
@@ -35,13 +36,20 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author findById(Long id) {
-        return authorRepository.findById(id).orElse(null);
+
+        Optional<Author> author = authorRepository.findById(id);
+
+        if (author.isEmpty()) {
+            throw new NotFoundExceptionHandler("Author not found for ID: " + id);
+        }
+
+        return author.orElse(null);
     }
 
     @Override
     public Author save(Author object) {
 
-        if (object.getId() == null){
+        if (object.getId() == null) {
             return authorRepository.save(object);
         }
 
