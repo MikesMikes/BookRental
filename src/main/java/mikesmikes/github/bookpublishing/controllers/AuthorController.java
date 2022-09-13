@@ -1,11 +1,8 @@
 package mikesmikes.github.bookpublishing.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import mikesmikes.github.bookpublishing.controllers.ErrorHandling.GlobalExceptionHandlerController;
 import mikesmikes.github.bookpublishing.domain.Author;
 import mikesmikes.github.bookpublishing.services.AuthorService;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 
 @Slf4j
