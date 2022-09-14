@@ -13,19 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandlerController {
 
-    private final String DEFAULT_ERROR_VIEW = "errors/error";
+    private final String DEFAULT_400_ERROR_VIEW = "errors/400error";
+    private final String DEFAULT_404_ERROR_VIEW = "errors/404error";
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public ModelAndView defaultExceptionHandler(Exception e, HttpServletRequest request) {
 
-
-
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
         mav.addObject("request", request.getRequestURI());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
+        mav.setViewName(DEFAULT_400_ERROR_VIEW);
 
         return mav;
     }
@@ -39,7 +39,7 @@ public class GlobalExceptionHandlerController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e.getMessage());
         mav.addObject("request", request.getRequestURI());
-        mav.setViewName("errors/404error");
+        mav.setViewName(DEFAULT_404_ERROR_VIEW);
 
         return mav;
     }

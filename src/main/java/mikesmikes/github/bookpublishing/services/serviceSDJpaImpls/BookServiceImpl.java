@@ -29,9 +29,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Set<Book> findAll() {
-        Set<Book> books = new HashSet<>();
-        bookRepository.findAll().forEach(books::add);
-        return books;
+        return new HashSet<>(bookRepository.findAll());
     }
 
     @Override
