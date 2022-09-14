@@ -62,6 +62,15 @@ class AuthorControllerTest {
     }
 
     @Test
+    void testInitUpdateAuthor400Exception() throws Exception {
+        when(authorService.findById(anyLong())).thenReturn(Author.builder().id(1L).build());
+
+        mockMvc.perform(get("/author/s/update"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/400error"));
+    }
+
+    @Test
     void processUpdateAuthor() throws Exception {
         Author author = Author.builder().id(1L).firstName("James").lastName("Dean").build();
         when(authorService.save(any())).thenReturn(author);
