@@ -1,6 +1,7 @@
 package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
 import lombok.extern.slf4j.Slf4j;
+import mikesmikes.github.bookpublishing.controllers.exceptions.NotFoundExceptionHandler;
 import mikesmikes.github.bookpublishing.domain.Book;
 import mikesmikes.github.bookpublishing.repositories.AuthorRepository;
 import mikesmikes.github.bookpublishing.repositories.BookRepository;
@@ -32,10 +33,21 @@ public class BookServiceImpl implements BookService {
         return new HashSet<>(bookRepository.findAll());
     }
 
+    /**
+     * Returns a Book object if found else throws a RunTimeException through NotFoundExceptionHandler.
+     *
+     * @param id of Book object
+     * @return Book object
+     */
     @Override
     public Book findById(Long id) {
         Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
+
+        if (book.isEmpty()) {
+            throw new NotFoundExceptionHandler("Book ID not for ID: " + id);
+        }
+
+        return book.get();
     }
 
     @Override
@@ -56,8 +68,8 @@ public class BookServiceImpl implements BookService {
             } else {
                 book.setPublisher(null);
             }
-            if (!object.getAuthors().isEmpty()){
-                if (object.getAuthors().contains(null)){
+            if (!object.getAuthors().isEmpty()) {
+                if (object.getAuthors().contains(null)) {
                     log.info("contains null");
                     book.getAuthors().forEach(i -> {
                         i.getBooks().clear();
@@ -84,7 +96,7 @@ public class BookServiceImpl implements BookService {
         book.setPublisher(null);
 
         authorRepository.findAll().forEach(i -> {
-            if (i.getBooks().contains(book)){
+            if (i.getBooks().contains(book)) {
                 i.getBooks().remove(book);
             }
         });
