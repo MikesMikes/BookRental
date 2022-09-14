@@ -33,7 +33,6 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.saveAll(authorList);
     }
 
-
     /**
      * Returns an Author object if found else throws a RunTimeException through NotFoundExceptionHandler.
      *

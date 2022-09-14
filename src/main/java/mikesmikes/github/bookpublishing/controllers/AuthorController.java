@@ -49,6 +49,7 @@ public class AuthorController {
 
     @PostMapping("/author/new")
     public String processCreateAuthor(@Valid Author author, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             return CREATEORUPDATEFORM;
         }
@@ -57,7 +58,7 @@ public class AuthorController {
     }
 
     @GetMapping("/author/{id}/update")
-    public String updateAuthor(@PathVariable("id") Long id, Model model) throws Exception {
+    public String updateAuthor(@PathVariable("id") Long id, Model model) {
 
         model.addAttribute("author", authorService.findById(id));
 

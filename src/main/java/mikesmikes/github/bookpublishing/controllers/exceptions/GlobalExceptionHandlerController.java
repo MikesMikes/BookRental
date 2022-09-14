@@ -1,5 +1,6 @@
 package mikesmikes.github.bookpublishing.controllers.exceptions;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandlerController {
 
@@ -18,6 +20,8 @@ public class GlobalExceptionHandlerController {
     @ExceptionHandler(NumberFormatException.class)
     public ModelAndView defaultExceptionHandler(Exception e, HttpServletRequest request) {
 
+
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e);
         mav.addObject("request", request.getRequestURI());
@@ -27,8 +31,11 @@ public class GlobalExceptionHandlerController {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(NotFoundExceptionHandler.class)
     public ModelAndView notFoundExceptionHandler(Exception e, HttpServletRequest request) {
+
+        log.info("Not Found Exception obtained");
+
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", e.getMessage());
         mav.addObject("request", request.getRequestURI());
