@@ -1,6 +1,7 @@
 package mikesmikes.github.bookpublishing.services.serviceSDJpaImpls;
 
 import lombok.extern.slf4j.Slf4j;
+import mikesmikes.github.bookpublishing.controllers.exceptions.NotFoundExceptionHandler;
 import mikesmikes.github.bookpublishing.domain.Publisher;
 import mikesmikes.github.bookpublishing.repositories.BookRepository;
 import mikesmikes.github.bookpublishing.repositories.PublisherRepository;
@@ -8,6 +9,7 @@ import mikesmikes.github.bookpublishing.services.PublisherService;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -29,16 +31,29 @@ public class PublisherServiceImpl implements PublisherService {
         return publishers;
     }
 
+    /**
+     * Returns an Publisher object if found else throws a RunTimeException through NotFoundExceptionHandler.
+     *
+     * @param id of Publisher
+     * @return Publisher object
+     */
     @Override
     public Publisher findById(Long id) {
-        return publisherRepository.findById(id).orElse(null);
+
+        Optional<Publisher> publisher = publisherRepository.findById(id);
+
+        if (publisher.isEmpty()) {
+            throw new NotFoundExceptionHandler("Publisher not found for ID: " + id);
+        }
+
+        return publisher.get();
     }
 
     @Override
     public Publisher save(Publisher object) {
         log.info("save - ");
         System.out.println(object.getId());
-        if (object.getId() != null){
+        if (object.getId() != null) {
             Publisher publisher = publisherRepository.findById(object.getId()).get();
             publisher.setName(object.getName());
             publisher.setAddress(object.getAddress());
